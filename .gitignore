@@ -1,18 +1,47 @@
-# http://www.gnu.org/software/automake
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
 
-Makefile.in
+# Folder config file
+Desktop.ini
 
-# http://www.gnu.org/software/autoconf
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
 
-/autom4te.cache
-/autoscan.log
-/autoscan-*.log
-/aclocal.m4
-/compile
-/config.h.in
-/configure
-/configure.scan
-/depcomp
-/install-sh
-/missing
-/stamp-h1
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk

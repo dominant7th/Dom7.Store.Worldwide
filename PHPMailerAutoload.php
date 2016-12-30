@@ -1,49 +1,39 @@
 <?php
-/**
- * PHPMailer SPL autoloader.
- * PHP Version 5
- * @package PHPMailer
- * @link https://github.com/PHPMailer/PHPMailer/ The PHPMailer GitHub project
- * @author Marcus Bointon (Synchro/coolbru) <phpmailer@synchromedia.co.uk>
- * @author Jim Jagielski (jimjag) <jimjag@gmail.com>
- * @author Andy Prevost (codeworxtech) <codeworxtech@users.sourceforge.net>
- * @author Brent R. Matzelle (original founder)
- * @copyright 2012 - 2014 Marcus Bointon
- * @copyright 2010 - 2012 Jim Jagielski
- * @copyright 2004 - 2009 Andy Prevost
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * @note This program is distributed in the hope that it will be useful - WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.
- */
 
-/**
- * PHPMailer SPL autoloader.
- * @param string $classname The name of the class to load
- */
-function PHPMailerAutoload($classname)
-{
-    //Can't use __DIR__ as it's only in PHP 5.3+
-    $filename = dirname(__FILE__).DIRECTORY_SEPARATOR.'class.'.strtolower($classname).'.php';
-    if (is_readable($filename)) {
-        require $filename;
-    }
-}
+require 'DOM7/PHPMailerAutoload.php';
 
-if (version_compare(PHP_VERSION, '5.1.2', '>=')) {
-    //SPL autoloading was introduced in PHP 5.1.2
-    if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
-        spl_autoload_register('PHPMailerAutoload', true, true);
-    } else {
-        spl_autoload_register('PHPMailerAutoload');
-    }
+$mail = new PHPMailer;
+
+//$mail->SMTPDebug = 3;                               // Enable verbose debug output
+
+$mail->isSMTP();                                      // Set mailer to use SMTP
+$mail->Host = 'smtp.comcast.net';  // Specify main and backup SMTP servers
+$mail->SMTPAuth = true;                               // Enable SMTP authentication
+$mail->Username = 'dom7.store@gmail.com';                 // SMTP username
+$mail->Password = 'Damn4617';                           // SMTP password
+$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+$mail->Port = 587;                                    // TCP port to connect to
+
+$mail->setFrom('INFO@SKATEWAREHOUSE.COM', 'Mailer');
+$mail->addAddress('swint@skatewarehouse.com', 'Joe User');     // Add a recipient
+$mail->addAddress('dom7.store@gmail.com');               // Name is optional
+$mail->addReplyTo('dom7.store@gmail.com', 'Information');
+$mail->addCC('cc@example.com');
+$mail->addBCC('bcc@example.com');
+
+$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+$mail->isHTML(true);                                  // Set email format to HTML
+
+$mail->Subject = 'Here is the subject';
+$mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+if(!$mail->send()) {
+    echo 'Message could not be sent.';
+    echo 'Mailer Error: ' . $mail->ErrorInfo;
 } else {
-    /**
-     * Fall back to traditional autoload for old PHP versions
-     * @param string $classname The name of the class to load
-     */
-    function __autoload($classname)
-    {
-        PHPMailerAutoload($classname);
-    }
+    echo 'Message has been sent';
 }
+
+?>
